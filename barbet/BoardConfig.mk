@@ -19,6 +19,11 @@ TARGET_SCREEN_DENSITY := 420
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 165
 USES_DEVICE_GOOGLE_BARBET := true
 
+TARGET_PREBUILT_KERNEL := device/google/barbet/prebuilts/kernel/Image.lz4-redfin
+BOARD_KERNEL_IMAGE_NAME   := Image.lz4-redfin
+
+BOARD_VENDOR_SEPOLICY_DIRS += device/google/barbet/sepolicy
+
 include device/google/redbull/BoardConfig-common.mk
 
 # Allow LZ4 compression
@@ -26,12 +31,6 @@ BOARD_RAMDISK_USE_LZ4 := true
 
 # Testing related defines
 #BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b9-setup.sh
-
-AUDIO_FEATURE_ENABLED_CS35L41 := false
-AUDIO_FEATURE_ENABLED_CS35L41_CALIBRATION_TOOL := false
-AUDIO_FEATURE_CONFIG_ENABLE_TAS_SPK_PROT := true
-AUDIO_FEATURE_CONFIG_ENABLE_TAS_STEREO := true
-AUDIO_FEATURE_CONFIG_ENABLE_TAS_SET_RE_IN_HAL := true
 
 -include vendor/google_devices/$(TARGET_BOOTLOADER_BOARD_NAME)/proprietary/BoardConfigVendor.mk
 
