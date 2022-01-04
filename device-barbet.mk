@@ -18,7 +18,7 @@ PRODUCT_HARDWARE := barbet
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-        LOCAL_KERNEL := device/google/barbet-kernel/Image.lz4
+        LOCAL_KERNEL := device/google/barbet/prebuilts/kernel/Image.lz4-redfin
     else
         LOCAL_KERNEL := device/google/barbet-kernel/vintf/Image.lz4
     endif
@@ -26,7 +26,7 @@ else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
-PRODUCT_VENDOR_KERNEL_HEADERS := device/google/barbet-kernel/sm7250/kernel-headers
+PRODUCT_VENDOR_KERNEL_HEADERS := device/google/barbet/kernel-headers
 
 DEVICE_PACKAGE_OVERLAYS += device/google/barbet/barbet/overlay
 
@@ -146,6 +146,71 @@ PRODUCT_COPY_FILES += \
 # Recovery
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.recovery.device.rc:recovery/root/init.recovery.barbet.rc
+
+# TWRP
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init.recovery.usb.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.usb.rc \
+    $(LOCAL_PATH)/prebuilts/touchscreen/ftm5.ko-redfin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/ftm5.ko \
+    $(LOCAL_PATH)/prebuilts/touchscreen/sec_touch.ko-redfin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/sec_touch.ko \
+    $(LOCAL_PATH)/prebuilts/touchdriver.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/touchdriver.sh \
+    $(LOCAL_PATH)/prebuilts/android.hardware.gatekeeper@1.0-service-qti:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/android.hardware.gatekeeper@1.0-service-qti \
+    $(LOCAL_PATH)/prebuilts/android.hardware.keymaster@4.1-service.citadel:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/android.hardware.keymaster@4.1-service.citadel \
+    $(LOCAL_PATH)/prebuilts/citadeld::$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/citadeld \
+    $(LOCAL_PATH)/prebuilts/qseecomd::$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/qseecomd \
+    $(LOCAL_PATH)/prebuilts/android.hardware.keymaster@4.0-service-qti:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/android.hardware.keymaster@4.0-service-qti \
+    $(LOCAL_PATH)/prebuilts/android.hardware.weaver@1.0-service.citadel:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/android.hardware.weaver@1.0-service.citadel \
+    $(LOCAL_PATH)/prebuilts/time_daemon:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/time_daemon \
+    $(LOCAL_PATH)/prebuilts/compatibility_matrix.1.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/compatibility_matrix.1.xml \
+    $(LOCAL_PATH)/prebuilts/compatibility_matrix.5.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/compatibility_matrix.5.xml \
+    $(LOCAL_PATH)/prebuilts/compatibility_matrix.2.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/compatibility_matrix.2.xml \
+    $(LOCAL_PATH)/prebuilts/compatibility_matrix.legacy.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/compatibility_matrix.legacy.xml \
+    $(LOCAL_PATH)/prebuilts/compatibility_matrix.3.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/compatibility_matrix.3.xml \
+    $(LOCAL_PATH)/prebuilts/compatibility_matrix.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/compatibility_matrix.xml \
+    $(LOCAL_PATH)/prebuilts/compatibility_matrix.4.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/compatibility_matrix.4.xml \
+    $(LOCAL_PATH)/prebuilts/systemmanifest.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/manifest.xml \
+    $(LOCAL_PATH)/prebuilts/vendormanifest.xml:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/etc/vintf/manifest.xml \
+    $(LOCAL_PATH)/prebuilts/libqtikeymaster4.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libqtikeymaster4.so \
+    $(LOCAL_PATH)/prebuilts/libkeymasterdeviceutils.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libkeymasterdeviceutils.so \
+    $(LOCAL_PATH)/prebuilts/libkeymasterutils.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libkeymasterutils.so \
+    $(LOCAL_PATH)/prebuilts/libnosprotos.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libnosprotos.so \
+    $(LOCAL_PATH)/prebuilts/vendor-pixelatoms-cpp.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/vendor-pixelatoms-cpp.so \
+    $(LOCAL_PATH)/prebuilts/libQSEEComAPI.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libQSEEComAPI.so \
+    $(LOCAL_PATH)/prebuilts/android.hardware.authsecret@1.0-impl.nos.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/android.hardware.authsecret@1.0-impl.nos.so \
+    $(LOCAL_PATH)/prebuilts/libprotobuf-cpp-full-3.9.1.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libprotobuf-cpp-full-3.9.1.so \
+    $(LOCAL_PATH)/prebuilts/libqcbor.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libqcbor.so \
+    $(LOCAL_PATH)/prebuilts/libdrmfs.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libdrmfs.so \
+    $(LOCAL_PATH)/prebuilts/libdiag.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libdiag.so \
+    $(LOCAL_PATH)/prebuilts/libnos_citadeld_proxy.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libnos_citadeld_proxy.so \
+    $(LOCAL_PATH)/prebuilts/libnos_client_citadel.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libnos_client_citadel.so \
+    $(LOCAL_PATH)/prebuilts/nos_app_avb.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/nos_app_avb.so \
+    $(LOCAL_PATH)/prebuilts/nos_app_keymaster.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/nos_app_keymaster.so \
+    $(LOCAL_PATH)/prebuilts/libprotobuf-cpp-lite-3.9.1.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libprotobuf-cpp-lite-3.9.1.so \
+    $(LOCAL_PATH)/prebuilts/nos_app_weaver.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/nos_app_weaver.so \
+    $(LOCAL_PATH)/prebuilts/libnos_datagram_citadel.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libnos_datagram_citadel.so \
+    $(LOCAL_PATH)/prebuilts/android.hardware.keymaster@4.1-impl.nos.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/android.hardware.keymaster@4.1-impl.nos.so \
+    $(LOCAL_PATH)/prebuilts/android.hardware.weaver@1.0-impl.nos.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/android.hardware.weaver@1.0-impl.nos.so \
+    $(LOCAL_PATH)/prebuilts/android.hardware.oemlock@1.0-impl.nos.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/android.hardware.oemlock@1.0-impl.nos.so \
+    $(LOCAL_PATH)/prebuilts/pixelpowerstats_provider_aidl_interface-V1-cpp.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/pixelpowerstats_provider_aidl_interface-V1-cpp.so \
+    $(LOCAL_PATH)/prebuilts/libnos.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libnos.so \
+    $(LOCAL_PATH)/prebuilts/libqmi_cci.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libqmi_cci.so \
+    $(LOCAL_PATH)/prebuilts/librpmb.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/librpmb.so \
+    $(LOCAL_PATH)/prebuilts/libssd.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libssd.so \
+    $(LOCAL_PATH)/prebuilts/libops.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libops.so \
+    $(LOCAL_PATH)/prebuilts/libdrm.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libdrm.so \
+    $(LOCAL_PATH)/prebuilts/libdisplayconfig.qti.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libdisplayconfig.qti.so \
+    $(LOCAL_PATH)/prebuilts/libGPreqcancel.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libGPreqcancel.so \
+    $(LOCAL_PATH)/prebuilts/libqisl.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libqisl.so \
+    $(LOCAL_PATH)/prebuilts/libGPreqcancel_svc.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libGPreqcancel_svc.so \
+    $(LOCAL_PATH)/prebuilts/vendor.display.config@2.0.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/vendor.display.config@2.0.so \
+    $(LOCAL_PATH)/prebuilts/libdrmtime.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libdrmtime.so \
+    $(LOCAL_PATH)/prebuilts/libsecureui.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libsecureui.so \
+    $(LOCAL_PATH)/prebuilts/libqmi_common_so.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libqmi_common_so.so \
+    $(LOCAL_PATH)/prebuilts/libStDrvInt.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libStDrvInt.so \
+    $(LOCAL_PATH)/prebuilts/libtime_genoff.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libtime_genoff.so \
+    $(LOCAL_PATH)/prebuilts/libqmi_encdec.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libqmi_encdec.so \
+    $(LOCAL_PATH)/prebuilts/android.hardware.gatekeeper@1.0-impl-qti.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so \
+    $(LOCAL_PATH)/prebuilts/prepdecrypt.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/prepdecrypt.sh \
+    $(LOCAL_PATH)/prebuilts/twrp.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
 
 PRODUCT_PACKAGES += \
     sensors.$(PRODUCT_HARDWARE) \
