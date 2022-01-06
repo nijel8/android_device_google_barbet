@@ -14,6 +14,17 @@
 # limitations under the License.
 #
 
+# Release name (automatically taken from this file's suffix)
+PRODUCT_RELEASE_NAME := $(lastword $(subst /, ,$(lastword $(subst _, ,$(firstword $(subst ., ,$(MAKEFILE_LIST)))))))
+
+# Custom vendor used in build tree (automatically taken from this file's prefix)
+#CUSTOM_VENDOR := $(lastword $(subst /, ,$(firstword $(subst _, ,$(firstword $(MAKEFILE_LIST))))))
+
+CUSTOM_VENDOR := twrp
+
+# OEM Info (automatically taken from device tree path)
+BOARD_VENDOR := $(or $(word 2,$(subst /, ,$(firstword $(MAKEFILE_LIST)))),$(value 2))
+
 #
 # All components inherited here go to system image
 #
@@ -44,6 +55,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
 $(call inherit-product, device/google/barbet/device-barbet.mk)
 $(call inherit-product-if-exists, vendor/google_devices/barbet/proprietary/device-vendor.mk)
 $(call inherit-product-if-exists, vendor/google_devices/barbet/prebuilts/device-vendor-barbet.mk)
+
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/$(CUSTOM_VENDOR)/config/common.mk)
 
 # Don't build super.img.
 PRODUCT_BUILD_SUPER_PARTITION := false
