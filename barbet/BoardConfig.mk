@@ -19,10 +19,38 @@ TARGET_SCREEN_DENSITY := 420
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 165
 USES_DEVICE_GOOGLE_BARBET := true
 
-TARGET_PREBUILT_KERNEL := device/google/barbet/prebuilts/kernel/Image.lz4-redfin
+DEVICE_PATH := device/$(BOARD_VENDOR)/$(PRODUCT_RELEASE_NAME)
+
+# Copy TWRP ramdisk files automatically
+TARGET_RECOVERY_DEVICE_DIRS := $(DEVICE_PATH)
+
+# Qcom Decryption
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+
+TARGET_PREBUILT_KERNEL := device/google/barbet/recovery/kernel/Image.lz4-redfin
 BOARD_KERNEL_IMAGE_NAME   := Image.lz4-redfin
 
 BOARD_VENDOR_SEPOLICY_DIRS += device/google/barbet/sepolicy
+
+# Recovery
+TARGET_RECOVERY_DEVICE_MODULES += \
+    android.hardware.vibrator-service.barbet \
+    libandroidicu \
+    libion
+
+TARGET_RECOVERY_TWRP_LIB := \
+    librecovery_twrp_barbet \
+    libnos_citadel_for_recovery \
+    libnos_for_recovery \
+    liblog \
+    libbootloader_message \
+    libfstab \
+    libext4_utils
+
+RECOVERY_BINARY_SOURCE_FILES += \
+    $(TARGET_OUT_VENDOR_EXECUTABLES)/hw/android.hardware.vibrator-service.barbet
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so
 
 include device/google/redbull/BoardConfig-common.mk
 
