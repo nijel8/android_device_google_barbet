@@ -1,10 +1,8 @@
 #!/system/bin/sh
 
-boot_reason=$(getprop ro.boot.bootreason | cut -d "," -F2)
+fastboot=$(cat /proc/cmdline)
 
-log -t "touchdriver" "boot_reason: $boot_reason"
-
-if [[ $boot_reason == "bootloader" ]]
+if [[ $fastboot == *"twrpfastboot=1"* ]]
 then
     log -t "touchdriver" "loading ramdisk touchdriver"
     insmod /vendor/lib/modules/1.1/ftm5.ko-redfin
