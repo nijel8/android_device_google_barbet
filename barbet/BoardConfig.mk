@@ -34,7 +34,6 @@ BOARD_VENDOR_SEPOLICY_DIRS += device/google/barbet/sepolicy
 
 # Recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
-    android.hardware.vibrator-service.barbet \
     libandroidicu \
     libion
 
@@ -47,8 +46,6 @@ TARGET_RECOVERY_TWRP_LIB := \
     libfstab \
     libext4_utils
 
-RECOVERY_BINARY_SOURCE_FILES += \
-    $(TARGET_OUT_VENDOR_EXECUTABLES)/hw/android.hardware.vibrator-service.barbet
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so
 

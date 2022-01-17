@@ -141,8 +141,7 @@ PRODUCT_PACKAGES += \
 
 # DRV2624 Haptics Waveform
 PRODUCT_COPY_FILES += \
-    device/google/barbet/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin \
-    device/google/barbet/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/drv2624.bin
+    device/google/barbet/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
 # Vibrator HAL
 PRODUCT_PRODUCT_PROPERTIES +=\
     ro.vendor.vibrator.hal.config.dynamic=1 \
