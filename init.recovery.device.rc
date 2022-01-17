@@ -15,6 +15,7 @@ on fs
 
 on boot
     start health-hal-2-0
+    start vibrator.barbet
 
 on post-fs
     start boot-hal-1-1
@@ -22,6 +23,20 @@ on post-fs
 service touchdriver /system/bin/touchdriver.sh
     oneshot
     disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service vibrator.barbet /system/bin/android.hardware.vibrator-service.barbet
+    setenv PROPERTY_PREFIX ro.vendor.vibrator.hal.
+    setenv HWAPI_PATH_PREFIX /sys/class/leds/vibrator/
+    setenv HWAPI_DEBUG_PATHS "
+        device/autocal
+        device/lp_trigger_effect
+        device/ol_lra_period
+        state
+        "
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     user root
     group root
     seclabel u:r:recovery:s0
