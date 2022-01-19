@@ -6,21 +6,22 @@ on init
 
     # Enable thermal mitigation
     write /sys/devices/virtual/thermal/tz-by-name/backup-charge/mode enabled
-    
-    start touchdriver
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
-on boot
-    start health-hal-2-0
-    start vibrator.barbet
-
 on post-fs
     start boot-hal-1-1
 
-service touchdriver /system/bin/touchdriver.sh
+on boot
+    start health-hal-2-0
+    start prepdrivers
+
+on property:vibrator.haptics.ready=1
+    start vibrator.barbet
+
+service prepdrivers /system/bin/prepdrivers.sh
     oneshot
     disabled
     user root
@@ -28,7 +29,10 @@ service touchdriver /system/bin/touchdriver.sh
     seclabel u:r:recovery:s0
 
 service vibrator.barbet /system/bin/android.hardware.vibrator-service.barbet
+    oneshot
+    disabled
     setenv PROPERTY_PREFIX ro.vendor.vibrator.hal.
+    setenv CALIBRATION_FILEPATH /drivers/drv2624.cal
     setenv HWAPI_PATH_PREFIX /sys/class/leds/vibrator/
     setenv HWAPI_DEBUG_PATHS "
         device/autocal
