@@ -1,0 +1,5 @@
+autocal: 7 155 2
+lra_period: 240
+haptic_coefficient: 0.17857 0 0 0
+vibration_amp_max: 1.140824591836735
+vibration_coefficient: -0.07167 0.40438 -0.26706 0.20203
