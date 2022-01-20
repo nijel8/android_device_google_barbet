@@ -47,6 +47,7 @@ TARGET_RECOVERY_TWRP_LIB := \
     libext4_utils
 
 RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so
 
 include device/google/redbull/BoardConfig-common.mk

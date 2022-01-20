@@ -31,7 +31,7 @@ cc_library_static {
         "bootable/recovery/twrpinstall/include",
         "bootable/recovery/crypto/fscrypt",
 	    "bootable/recovery/bootloader_message/include",
-	    "system/core/libziparchive/include",
+	    "system/libziparchive/include",
     ],
     static_libs: [
         "libbase",
